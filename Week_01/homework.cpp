@@ -36,6 +36,8 @@ void moveZeroes(vector<int>& nums) {
 }
 
 /*
+L.26 删除排序数组中的重复项
+
 通过引入双索引，j在前（被动式，只能跟着x来走），i在后（主动式，会递增）。当j,i索引值不同时，则将j索引至i的位置；
 当i,j索引值相同时，则此循环内不操作，等下一循环再进行比较和更新索引。
 这一系列的目的，就是使j的索引为不重复的元素的最后一个.
@@ -56,6 +58,79 @@ public:
     return ++j;  
     }
 };
+
+/*
+ [641] 设计循环双端队列
+ 主要是C++的STL库的队列子函数（需要注意接下来的学习）
+*/
+
+// @lc code=start
+class MyCircularDeque {
+public:
+    vector<int> num;
+    int cap;
+    int size;
+    /** Initialize your data structure here. Set the size of the deque to be k. */
+    MyCircularDeque(int k) {
+        size=k;
+        cap=0;
+    }
+    
+    /** Adds an item at the front of Deque. Return true if the operation is successful. */
+    bool insertFront(int value) {
+        if(cap>=size) return false;
+        num.insert(num.begin(),value);
+        cap++;
+        return true;
+    }
+    
+    /** Adds an item at the rear of Deque. Return true if the operation is successful. */
+    bool insertLast(int value) {
+        if(cap>=size) return false;
+        num.push_back(value);
+        cap++;
+        return true;
+    }
+    
+    /** Deletes an item from the front of Deque. Return true if the operation is successful. */
+    bool deleteFront() {
+        if(cap==0) return false;
+        num.erase(num.begin());
+        cap--;
+        return true;
+    }
+    
+    /** Deletes an item from the rear of Deque. Return true if the operation is successful. */
+    bool deleteLast() {
+        if(cap==0) return false;
+        num.pop_back();
+        cap--;
+        return true;
+    }
+    
+    /** Get the front item from the deque. */
+    int getFront() {
+        if(cap!=0) return num[0];
+        return -1;
+    }
+    
+    /** Get the last item from the deque. */
+    int getRear() {
+        if(cap!=0) return num[cap-1];
+        return -1;
+    }
+    
+    /** Checks whether the circular deque is empty or not. */
+    bool isEmpty() {
+        return cap==0;
+    }
+    
+    /** Checks whether the circular deque is full or not. */
+    bool isFull() {
+        return cap==size;
+    }
+};
+
 
 
 /*
