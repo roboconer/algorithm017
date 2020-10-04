@@ -1,1 +1,1 @@
-学习笔记
+The second week's homework.
